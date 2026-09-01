@@ -22,9 +22,11 @@ A BGP route injection and flapping tool built on [ExaBGP](https://github.com/Exa
 # Install locally (for the CLI)
 pip install -e .
 
-# Copy and edit the config
-cp configs/example.yaml configs/config.yaml
-# Edit configs/config.yaml — set peer_address, local_address, AS numbers, etc.
+# Generate a config interactively
+route-tool init configs/config.yaml
+
+# Or copy and edit the example config manually
+# cp configs/example.yaml configs/config.yaml
 
 # Validate your config
 route-tool validate -c configs/config.yaml
@@ -115,6 +117,7 @@ route-tool [OPTIONS] COMMAND [ARGS]...
 
 | Command    | Description                                      |
 |------------|--------------------------------------------------|
+| `init`     | Interactively generate a config file             |
 | `run`      | Build image and start the ExaBGP container       |
 | `stop`     | Stop and remove the container                    |
 | `status`   | Show container, BGP neighbor, and route status   |
