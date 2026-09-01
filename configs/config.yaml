@@ -1,0 +1,72 @@
+# Route-Tool Example Configuration
+#
+# Copy this file and modify for your environment:
+#   cp configs/example.yaml configs/config.yaml
+
+bgp:
+  local_as: 65001
+  peer_address: 10.0.0.1        # BGP peer / DUT address
+  peer_as: 65000
+  router_id: 10.0.0.2
+  local_address: 10.0.0.2       # Source address for BGP session
+  hold_time: 90
+
+routes:
+  # IPv4 Unicast
+  ipv4:
+    enabled: true
+    count: 1000
+    base_prefix: "198.51.100.0/24"
+    prefix_length: 32
+    next_hop: "10.0.0.2"
+    communities:
+      - "65001:100"
+    med: 100
+    # as_path: [65001, 65002]   # Optional AS path prepend
+
+  # IPv6 Unicast
+  ipv6:
+    enabled: true
+    count: 500
+    base_prefix: "2001:db8::/32"
+    prefix_length: 48
+    next_hop: "2001:db8::2"
+    communities:
+      - "65001:200"
+
+  # VPNv4 (IPv4 MPLS VPN)
+  vpnv4:
+    enabled: true
+    count: 1000
+    base_prefix: "10.0.0.0/8"
+    prefix_length: 24
+    next_hop: "10.0.0.2"
+    rd: "65001:1"
+    route_targets:
+      - "65001:100"
+    communities:
+      - "65001:300"
+
+  # VPNv6 (IPv6 MPLS VPN)
+  vpnv6:
+    enabled: false
+    count: 500
+    base_prefix: "fd00::/16"
+    prefix_length: 48
+    next_hop: "::ffff:10.0.0.2"
+    rd: "65001:2"
+    route_targets:
+      - "65001:200"
+
+# Route Flapping Configuration
+flapping:
+  enabled: true
+  percentage: 10                # Percentage of routes to flap each cycle
+  interval_sec: 30              # Seconds between flap cycles
+  pattern: random               # random | sequential | burst
+  address_families:             # Which AFIs to flap
+    - ipv4
+    - vpnv4
+  duration_sec: 0               # 0 = flap indefinitely
+  burst_size: 50                # Routes per burst (burst pattern only)
+  initial_delay_sec: 60         # Wait for routes to stabilize before flapping

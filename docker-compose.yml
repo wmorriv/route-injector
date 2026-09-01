@@ -1,0 +1,9 @@
+services:
+  route-tool:
+    build: .
+    image: route-tool:latest
+    container_name: route-tool
+    network_mode: host
+    volumes:
+      - ./configs/config.yaml:/config/config.yaml:ro
+    restart: unless-stopped

@@ -1,0 +1,45 @@
+# Route-tool config for use with the CLAB example topology.
+# local_address/peer_address must match the IPs on the CLAB link.
+
+bgp:
+  local_as: 65001
+  peer_address: 10.0.0.1
+  peer_as: 65000
+  router_id: 10.0.0.2
+  local_address: 10.0.0.2
+  hold_time: 90
+
+routes:
+  ipv4:
+    enabled: true
+    count: 1000
+    base_prefix: "198.51.100.0/24"
+    prefix_length: 32
+    next_hop: "10.0.0.2"
+    communities:
+      - "65001:100"
+
+  ipv6:
+    enabled: false
+
+  vpnv4:
+    enabled: true
+    count: 500
+    base_prefix: "10.100.0.0/16"
+    prefix_length: 24
+    next_hop: "10.0.0.2"
+    rd: "65001:1"
+    route_targets:
+      - "65001:100"
+
+  vpnv6:
+    enabled: false
+
+flapping:
+  enabled: true
+  percentage: 10
+  interval_sec: 30
+  pattern: random
+  address_families:
+    - ipv4
+  initial_delay_sec: 30

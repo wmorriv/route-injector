@@ -1,0 +1,2 @@
+[console_scripts]
+route-tool = route_tool.cli:main

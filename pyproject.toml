@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "route-tool"
+version = "0.1.0"
+description = "ExaBGP route injection tool for BGP scale testing"
+requires-python = ">=3.10"
+dependencies = [
+    "click>=8.1",
+    "pydantic>=2.0",
+    "pyyaml>=6.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+]
+
+[project.scripts]
+route-tool = "route_tool.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["route_tool*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
