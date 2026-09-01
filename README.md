@@ -9,7 +9,7 @@ A BGP route injection and flapping tool built on [ExaBGP](https://github.com/Exa
 - **Up to 1M routes per address family** — with batched announcement to avoid overwhelming peers
 - **YAML configuration** with Pydantic validation
 - **CLI with runtime overrides** — change peer address, route count, or flap behavior without editing config files
-- **Containerlab integration** — included topology for lab testing with Nokia SR Linux (adaptable to any vendor)
+- **Containerlab integration** — included topology for lab testing with Arista cEOS (adaptable to any vendor)
 
 ## Requirements
 
@@ -174,14 +174,14 @@ When running the container directly, you can override config values via environm
 
 ## Containerlab
 
-An example topology is included for lab testing with Nokia SR Linux:
+An example topology is included for lab testing with Arista cEOS:
 
 ```bash
 docker build -t route-tool:latest .
 sudo clab deploy -t configs/clab-example.clab.yml
 ```
 
-This creates a two-node topology with a direct link between route-tool and an SR Linux DUT, pre-configured for BGP peering. Adapt the topology file for other vendors (cEOS, vMX, vSROS, etc.) by replacing the `dut` node definition and startup config.
+This creates a two-node topology with a direct link between route-tool and a cEOS DUT, pre-configured for BGP peering. Adapt the topology file for other vendors (SR Linux, vMX, vSROS, etc.) by replacing the `dut` node definition and startup config.
 
 Check BGP status after deploy:
 
